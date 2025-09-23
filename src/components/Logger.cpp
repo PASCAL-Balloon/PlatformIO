@@ -1,5 +1,6 @@
 #include <SD.h>
 #include <string>
+#include <cstring>
 #include "Config.h"
 #include "Data.h"
 #include "PASCAL.h"
@@ -31,7 +32,7 @@ Logger::Logger(const char* prefix) {
 		strcat(errorName, "-Errors.csv");
         // Increment the filenumber for next loop
         fileNumber++;
-    } while (SD.exists(name) && SD.exists(errorName)); // Do that again if the file exists already
+    } while (SD.exists(name) || SD.exists(errorName)); // Do that again if the file exists already
 
 	// Saving the file name we found
 	fileName = name;
