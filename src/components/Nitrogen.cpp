@@ -15,7 +15,7 @@ NO2Sensor::NO2Sensor() {
     adc = ADS1115_WE(0x48);
 }
 
-void NO2Sensor::init(float WEOffset, float AuxOffset, float sensitivity, float tempMult) {
+void NO2Sensor::init() {
     this->WEOffset = WEOffset;
     this->AuxOffset = AuxOffset;
     this->sensitivity = sensitivity;

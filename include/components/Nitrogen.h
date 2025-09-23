@@ -24,7 +24,7 @@ public:
     NO2Sensor();
 
     // Initializes the sensor and adds the constants
-    void init(float WEOffset, float AuxOffset, float sensitivity, float tempMult);
+    void init();
 
     // Updates the nitrogen reading in Data
     void updateData();

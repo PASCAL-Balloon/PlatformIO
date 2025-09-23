@@ -54,7 +54,7 @@ void initComponents() {
 	humidity.turnOn();
 	bmp.init();
 	oxygen.init();
-	no2.init(config.WEOffset, config.AuxOffset, config.sensitivity, config.temperatureMultiplier);
+	no2.init();
 	controller.init();
 }
 
