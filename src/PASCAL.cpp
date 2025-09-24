@@ -50,12 +50,12 @@ void initPins() {
 
 void initComponents() {
 	logger.init();
-	gps.init();
 	humidity.turnOn();
 	bmp.init();
 	oxygen.init();
 	no2.init();
 	controller.init();
+	gps.init();
 }
 
 // Turns on all of the LEDs to ensure they are operational

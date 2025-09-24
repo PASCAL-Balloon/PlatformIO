@@ -6,39 +6,46 @@
 #include "PASCAL.h"
 #include "components/Logger.h"
 
-Logger::Logger(const char* prefix) {
+Logger::Logger(String prefix) {
 
 	// Making a new file and ensuring it exits (Thanks for the code HAVOC)
 	// Start with number 1
 	unsigned short int fileNumber = 1;
 	// Reserve space for filenames up to 31 chars
-	char name[32];
+	//char name[32];
+	String name;
 	// Same but for the errors
-	char errorName[32];
+	//char errorName[32];
+	String errorName;
 	// Reserve space for converting number to string
 	char fileNumberStr[6];
 	do {
         // Overwrite fileName with prefix
-        strcpy(name, prefix);
+        //strcpy(name, prefix);
+		name = prefix;
         // Convert fileNumber to five-char string (e.g. 1 -> 00001)
         sprintf(fileNumberStr, "%0*d", 5, fileNumber);
         // Append fileNumber to prefix
-        strcat(name, fileNumberStr);
+        //strcat(name, fileNumberStr);
+		name = name + fileNumberStr;
 		// Copy to error file
-		strcpy(errorName, name);
+		//strcpy(errorName, name);
+		errorName = name;
         // Append ".csv" to file name
-        strcat(name, ".csv");
+        //strcat(name, ".csv");
+		name = name + ".csv";
 		// Append "-Errors.csv" to error file name
-		strcat(errorName, "-Errors.csv");
+		//strcat(errorName, "-Errors.csv");
+		errorName = errorName + "-Errors.csv";
         // Increment the filenumber for next loop
         fileNumber++;
     } while (SD.exists(name) || SD.exists(errorName)); // Do that again if the file exists already
 
 	// Saving the file name we found
-	fileName = name;
+	fileName = "WHY.csv";//name;
 
 	// Saving an extra file name as the same thing with a -Errors tag
-	errorFileName = errorName;
+	errorFileName = "WHY_errors.csv";//errorName;
 }
 
 void Logger::init() {
@@ -111,6 +118,7 @@ void Logger::writeTelemetry() {
 	String(data.WE_real) + "," +
 	getErrorString(data.error);	
 	write(Data);
+	Serial.println(Data);
   
 	data.packetNumber++;
 }

@@ -5,13 +5,16 @@
 
 class Logger {
 private:
-    char* fileName;
-    char* errorFileName;
+    //char* fileName;
+    String fileName;
+    //char* errorFileName;
+    String errorFileName;
 public:
 
     // Creates a new logger object
     // Note that the filename should NOT include.txt
-    Logger(const char* prefix);
+    //Logger(const char* prefix);
+    Logger(String prefix);
 
     // Initializes the logger
     void init();

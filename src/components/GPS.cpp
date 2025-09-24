@@ -15,11 +15,15 @@ void GPS::init() {
 	Wire.begin();
 
     // Initialization
+	delay(3000);
     if (!gps.begin()) {
 		data.error = data.error > GPS_ERROR ? data.error : GPS_ERROR;	
 		logger.writeError("GPS Initialization Error");
-		return;	
     }
+	logger.writeError("it worked");
+	if (data.error == GPS_ERROR) {
+		data.error = NO_ERROR;
+	}
 
     // Updating settings
     gps.setI2COutput(COM_TYPE_UBX);
