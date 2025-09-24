@@ -32,20 +32,21 @@ Logger::Logger(String prefix) {
 		//strcpy(errorName, name);
 		errorName = name;
         // Append ".csv" to file name
-        //strcat(name, ".csv");
+        // strcat(name, ".csv");
 		name = name + ".csv";
 		// Append "-Errors.csv" to error file name
 		//strcat(errorName, "-Errors.csv");
-		errorName = errorName + "-Errors.csv";
+		errorName = errorName + "-Errors.txt";
+
         // Increment the filenumber for next loop
         fileNumber++;
     } while (SD.exists(name) || SD.exists(errorName)); // Do that again if the file exists already
 
 	// Saving the file name we found
-	fileName = "WHY.csv";//name;
+	fileName = "TestingSIV.csv";//name;
 
 	// Saving an extra file name as the same thing with a -Errors tag
-	errorFileName = "WHY_errors.csv";//errorName;
+	errorFileName = "ErrorTestingSIV.csv";//errorName;
 }
 
 void Logger::init() {

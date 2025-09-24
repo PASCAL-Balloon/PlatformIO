@@ -79,9 +79,7 @@ Timer blinkyTimer = Timer(500); // Half a second
 void blinky() {
 	if (blinkyTimer.isComplete()) {
 		digitalWrite(config.pins.blinker, !digitalRead(config.pins.blinker));
-		if (data.state != INITIALIZATION){
-			digitalWrite(config.pins.brightLEDs, !digitalRead(config.pins.brightLEDs));
-		}
+		digitalWrite(config.pins.brightLEDs, !digitalRead(config.pins.brightLEDs));
 		blinkyTimer.reset();  
 	} 
 }
@@ -246,6 +244,13 @@ void displayErrors() {
 			}
 			break;
 
+	}
+
+	// TODO REMOVE
+	if (data.gpsData.SIV > 3) {
+		digitalWrite(LED_BUILTIN, HIGH);
+	} else {
+		digitalWrite(LED_BUILTIN, LOW);
 	}
 
 

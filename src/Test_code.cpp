@@ -31,14 +31,20 @@ void setup() {
 }
 
 void loop() {
-	blinky(); 
-	collectData();
-	fakeAltitude();
-	logger.writeTelemetry();
-	updateState();
-	if (data.state == PASSIVE) controller.sampling();
-	// Printing the altitude and the state
-	Serial.println("Altitude: " + String(data.gpsData.pos.alt) + "\tState: " + getFlightStateString(data.state) + "\tSampling State: " + getSampleStateString(data.sampleState));
+	digitalWrite(2, HIGH);
+	delay(500);
+	digitalWrite(2, LOW);
+	delay(500);
+
+
+	// blinky(); 
+	// collectData();
+	// fakeAltitude();
+	// logger.writeTelemetry();
+	// updateState();
+	// if (data.state == PASSIVE) controller.sampling();
+	// // Printing the altitude and the state
+	// Serial.println("Altitude: " + String(data.gpsData.pos.alt) + "\tState: " + getFlightStateString(data.state) + "\tSampling State: " + getSampleStateString(data.sampleState));
 }
 
 
