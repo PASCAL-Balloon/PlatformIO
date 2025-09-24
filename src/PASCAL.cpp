@@ -178,7 +178,7 @@ void displayErrors() {
 
 	/****************************************** Error Definitions ******************************************
 	 *
-	 *	If all lights are off, then there were no errors.
+	 *	If SOLID GREEN LIGHT and no pico, then there were no errors.
 	 *  If the ONLY LIGHT ON is the pico light, then GPS has gained lock
 	 *
 	 *	If all three lights are on, then there was an SD error
@@ -201,8 +201,8 @@ void displayErrors() {
 			break;
 
 		case GPS_ERROR: 
-			digitalWrite(config.pins.tiny, HIGH);
-			digitalWrite(config.pins.smol, LOW);
+			digitalWrite(config.pins.tiny, LOW);
+			digitalWrite(config.pins.smol, HIGH);
 			digitalWrite(LED_BUILTIN, HIGH);
 			break;
 
@@ -237,7 +237,7 @@ void displayErrors() {
 			break;
 
 		case NO_ERROR:
-			digitalWrite(config.pins.tiny, LOW);
+			digitalWrite(config.pins.tiny, HIGH);
 			digitalWrite(config.pins.smol, LOW);
 			if (data.gpsData.SIV > 3) {
 				digitalWrite(LED_BUILTIN, HIGH);

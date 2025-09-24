@@ -18,9 +18,9 @@ void HumiditySensor::updateData() {
 	double humid;
 	double temp;
   	
-	// humidity.readTemperatureHumidityOnDemand(temp, humid, TRIGGERMODE_LP0);
+	humidity.readTemperatureHumidityOnDemand(temp, humid, TRIGGERMODE_LP0);
 	// Changing to this can greatly increase loop speed
-	humidity.readAutoTempRH(temp, humid);
+	//humidity.readAutoTempRH(temp, humid);
 
 
 	data.atmoData.humidity = humid;
