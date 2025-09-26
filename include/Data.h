@@ -28,11 +28,12 @@ enum FlightState {
 enum Error {
 	NO_ERROR = 0,
 	SD_ERROR = 9,
-	GPS_ERROR = 3,
-	BMP_ERROR = 2,
+	GPS_ERROR = 4,
+	BMP_ERROR = 3,
 	NO2_ERROR = 6,
-	HUMID_ERROR = 1,
+	HUMID_ERROR = 2,
 	O2_ERROR = 10,
+    LOW_SIV_WARNING = 1,
 };
 
 

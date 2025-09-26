@@ -18,6 +18,8 @@ private:
     // Internal function to read the channels
     float readChannel(ADS1115_MUX channel);
 
+    Error error;
+
 public:
 
     // Sets the pins and creates a new object
@@ -28,6 +30,8 @@ public:
 
     // Updates the nitrogen reading in Data
     void updateData();
+
+    Error getError();
 	
 
 };

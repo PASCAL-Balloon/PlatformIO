@@ -15,14 +15,13 @@ void GPS::init() {
 	Wire.begin();
 
     // Initialization
-	delay(3000);
+	// delay(3000); // This delay is not needed with new error handling
     if (!gps.begin()) {
-		data.error = data.error > GPS_ERROR ? data.error : GPS_ERROR;	
-		logger.writeError("GPS Initialization Error");
-    }
-	logger.writeError("it worked");
-	if (data.error == GPS_ERROR) {
-		data.error = NO_ERROR;
+		data.error = data.error > GPS_ERROR ? data.error : GPS_ERROR;
+		error = GPS_ERROR;	
+    } else {
+		error = NO_ERROR;
+		data.error = data.error == GPS_ERROR ?  NO_ERROR : data.error;
 	}
 
     // Updating settings
@@ -30,19 +29,20 @@ void GPS::init() {
     gps.setNavigationFrequency(5);
     if (gps.setDynamicModel(DYN_MODEL_AIRBORNE4g) == false) {
 		data.error = data.error > GPS_ERROR ? data.error : GPS_ERROR;	
-		logger.writeError("Dynamic Model Incorrectly Set Error (GPS init)");
 	}
     gps.saveConfiguration();
 
+	// TODO remove this block
+	// Not needed due to updated error logging
 	// Waiting for a satellite lock
-	long startTime = millis();
-    while (gps.getSIV() < 3) {
-        Serial.print("Waiting for lock, SIV: ");
-		Serial.println(gps.getSIV());
+	// long startTime = millis();
+    // while (gps.getSIV() < 3) {
+    //     Serial.print("Waiting for lock, SIV: ");
+	// 	Serial.println(gps.getSIV());
 		
-		// Limiting the wait to 3 seconds
-		if (millis() - startTime > 3000) break;
-    }
+	// 	// Limiting the wait to 3 seconds
+	// 	if (millis() - startTime > 3000) break;
+    // }
 
 }
 
@@ -84,4 +84,13 @@ void GPS::updateData() {
 	if (tick.isComplete()) {
 		update();
 	}
+}
+
+Error GPS::getError() {
+	// Updates warning if we don't have the larger gps error
+	if (error != GPS_ERROR && getSIV() < 3) {
+		error = LOW_SIV_WARNING;
+		data.error = data.error > LOW_SIV_WARNING ? data.error : LOW_SIV_WARNING;
+	}
+	return error;
 }

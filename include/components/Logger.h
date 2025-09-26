@@ -9,6 +9,9 @@ private:
     String fileName;
     //char* errorFileName;
     String errorFileName;
+
+    Error error;
+
 public:
 
     // Creates a new logger object
@@ -27,5 +30,7 @@ public:
 
 	// Writes all of the data we currently have to the SD
 	void writeTelemetry();
+
+    Error getError();
 
 };

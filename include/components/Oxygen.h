@@ -2,6 +2,7 @@
 #define OXYGEN_H
 #include "DFRobot_OxygenSensor.h"
 #include "Config.h"
+#include "Data.h"
 
 class OxygenSensor {
 private:
@@ -11,6 +12,8 @@ private:
 	// Lower is faster, but less precise (We are recording every single sample, so maybe lower is better)
     int collectionNumber = 10; // Can be from 1-100
 
+    Error error;
+
 public:
 
     // Initializes the oxygen sensor
@@ -18,6 +21,8 @@ public:
 
     // Reads from the oxygen sensor
     void updateData();
+
+    Error getError();
 
 };
 

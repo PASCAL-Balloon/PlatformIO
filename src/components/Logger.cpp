@@ -53,7 +53,10 @@ void Logger::init() {
     if (!SD.begin(config.pins.chipSelect)) {
         data.error = data.error > SD_ERROR ? data.error : SD_ERROR;
 		return;   
-    }
+    } 
+	error = NO_ERROR;
+	data.error = data.error == SD_ERROR ?  NO_ERROR : data.error;
+
 
 	// Writes the header for the file
 	write("Payload,Payload State,Sampling State,Packet Number,Mission Time (s),SIV,UTC Time,Oxygen Concentration (ppb),Temperature (deg C),Humidity (%),Humidity Sensor Temperature (deg C),Pressure (mBar),GPS Altitude (m),GPS Latitude (DD.dddd),GPS Longitude (DD.dddd),Nitrogen (ppb),Aux Measure (mV),WE Measure (mV),Error"); 
@@ -80,12 +83,22 @@ void Logger::write(String toWrite) {
 
 void Logger::writeError(String errorName) {
 
+	// Outdated
 	// Adding context
-	String toWrite = String(data.missionTime)
-		+ errorName + ","
-		+ String(data.atmoData.alt) + ","
-		+ getFlightStateString(data.state) + ","
-		+ getSampleStateString(data.sampleState);
+	// String toWrite = String(data.missionTime)
+		// + errorName + ","
+		// + String(data.atmoData.alt) + ","
+		// + getFlightStateString(data.state) + ","
+		// + getSampleStateString(data.sampleState);
+
+	// Now in .txt format!
+	String toWrite = 
+		"MISSION TIME: " +
+		String(data.missionTime) + 
+		"\tPACKET NUMBER: " +
+		String(data.packetNumber) + 
+		"ERROR: " +
+		errorName;
 
 	// Writing the data
 	File dataFile = SD.open(errorFileName, FILE_WRITE);
@@ -124,4 +137,8 @@ void Logger::writeTelemetry() {
 	data.packetNumber++;
 }
   
+
+Error Logger::getError() {
+	return error;
+}
 

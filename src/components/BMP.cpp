@@ -25,7 +25,14 @@ void BMP::updateData() {
 
 void BMP::init() {
     if (!bmp.begin_I2C()) {
-        data.error = data.error > BMP_ERROR ? data.error : BMP_ERROR;	
-        logger.writeError("BMP Initialization Error");        
+        data.error = data.error > BMP_ERROR ? data.error : BMP_ERROR;
+        error = BMP_ERROR;	
+        logger.writeError("BMP Initialization Error");       
+        return; 
     }
+    error = NO_ERROR;	
+}
+
+Error BMP::getError() {
+    return error;
 }

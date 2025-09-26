@@ -13,6 +13,7 @@ private:
     SFE_UBLOX_GNSS gps;
     int gnssAddress = 0x42;
 
+    Error error;
 	
     // The timer for the tick of the GPS
     Timer tick = Timer(1000);
@@ -30,6 +31,8 @@ public:
 
 	// Updates the data from the GPS if the tick is ready
 	void updateData();
+
+    Error getError();
 
 };
 

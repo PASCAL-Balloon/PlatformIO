@@ -22,8 +22,12 @@ void NO2Sensor::init() {
     this->tempMult = tempMult;
 
     if(!adc.init()){
-       data.error = data.error > NO2_ERROR ? data.error : NO2_ERROR;	
-       logger.writeError("ADC Initialization Error");
+       data.error = data.error > NO2_ERROR ? data.error : NO2_ERROR;
+       error = NO2_ERROR;	
+       return;
+    } else {
+        data.error = data.error == NO2_ERROR ?  NO_ERROR : data.error;
+        error = NO_ERROR;
     }
 
     adc.setVoltageRange_mV(ADS1115_RANGE_6144);
@@ -43,4 +47,6 @@ void NO2Sensor::updateData() {
     data.atmoData.no2 = (data.WE_real - data.Aux_real)/(config.sensitivity);
 }
 
-
+Error NO2Sensor::getError() {
+    return error;
+}

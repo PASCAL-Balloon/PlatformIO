@@ -2,11 +2,15 @@
 #include <Adafruit_HDC302x.h>
 #include "components/Humidity.h"
 #include "PASCAL.h"
+#include "Data.h"
+
 
 void HumiditySensor::turnOn() {
     if(!humidity.begin()){
 		data.error = data.error > HUMID_ERROR ? data.error : HUMID_ERROR;	
-		logger.writeError("Humidity Sensor Initialization Error");
+		error = HUMID_ERROR;
+	} else {
+		error = NO_ERROR;
 	}
 	
 	// If we switch to this it should make everything way faster
@@ -25,4 +29,8 @@ void HumiditySensor::updateData() {
 
 	data.atmoData.humidity = humid;
 	data.atmoData.humiditySensorTemperature = temp;
+}
+
+Error HumiditySensor::getError() {
+	return error;
 }

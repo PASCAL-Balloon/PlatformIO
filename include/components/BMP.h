@@ -6,6 +6,7 @@
 
 class BMP {
 
+    Error error;
 
 public:
     Adafruit_BMP3XX bmp;
@@ -20,5 +21,8 @@ public:
 
 	// Refreshes each of the datapoints
 	void updateData();
+
+    // Polls to see if there is an error
+    Error getError();
 
 };

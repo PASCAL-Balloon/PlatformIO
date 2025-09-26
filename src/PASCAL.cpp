@@ -1,6 +1,7 @@
 
 
-// All the includes 
+// All the includes
+#include <string>
 #include "Config.h"
 #include "Data.h"
 #include "Timers.h"
@@ -256,6 +257,34 @@ void displayErrors() {
 
 }
 
+// Function that restarts all of the sensors that gave us errors
+void fixErrors() {
+
+	if (logger.getError() == SD_ERROR) logger.init();
+	if (gps.getError() == GPS_ERROR) {
+		gps.init();
+		logger.writeError("GPS error detected, it has been restarted.");
+	}
+	if (oxygen.getError() == O2_ERROR) {
+		oxygen.init();
+		logger.writeError("Oxygen sensor error detected, it has been restarted.");
+	}
+	if (no2.getError() == NO2_ERROR) {
+		no2.init();
+		logger.writeError("Nitrogen sensor error detected, it has been restarted.");
+	}
+	if (bmp.getError() == BMP_ERROR) {
+		bmp.init();
+		logger.writeError("BMP error detected, it has been restarted.");
+	}
+	if (humidity.getError() == HUMID_ERROR) {
+		humidity.turnOn();
+		logger.writeError("Humidity sensor error detected, it has been restarted.");
+	}
+
+
+
+}
 
 // Function to get a string representations of the errors for printing
 String getErrorString(Error error) {
