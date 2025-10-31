@@ -67,7 +67,7 @@ enum class SampleState {
 // The central data struct so that we can access everything
 struct Data {
 	unsigned long packetNumber = 0; 
-	unsigned long missionTime = 0; // s
+	double missionTime = 0; // s
 	FlightState state = FlightState::INITIALIZATION;
 	SampleState sampleState = SampleState::NOT_STARTED;
 	GPSData gpsData;

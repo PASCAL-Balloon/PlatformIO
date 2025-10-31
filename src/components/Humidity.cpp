@@ -10,7 +10,8 @@ void HumiditySensor::turnOn() {
 	}
 	
 	// If we switch to this it should make everything way faster
-	humidity.setAutoMode(AUTO_MEASUREMENT_0_5MPS_LP0);
+	//I COMMENTED IT OUT
+	//humidity.setAutoMode(AUTO_MEASUREMENT_0_5MPS_LP0);
 }
 
 void HumiditySensor::updateData() {
@@ -20,7 +21,8 @@ void HumiditySensor::updateData() {
   	
 	// humidity.readTemperatureHumidityOnDemand(temp, humid, TRIGGERMODE_LP0);
 	// Changing to this can greatly increase loop speed
-	humidity.readAutoTempRH(temp, humid);
+	//humidity.readAutoTempRH(temp, humid);
+	humidity.readTemperatureHumidityOnDemand(temp, humid, TRIGGERMODE_LP0);
 
 
 	data.atmoData.humidity = humid;

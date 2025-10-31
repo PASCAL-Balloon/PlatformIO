@@ -16,11 +16,21 @@
 #include "components/PumpController.h"
 
 void setup() {
-
-
+    pinMode(4, OUTPUT);
+    pinMode(3, OUTPUT);
+    pinMode(LED_BUILTIN, OUTPUT);         
 }
 
 void loop() {
-
+    //digitalWrite(4, HIGH);
+    digitalWrite(4, HIGH); 
+    digitalWrite(3, HIGH); 
+    digitalWrite(LED_BUILTIN, HIGH);     
+    delay(3000);  
+    //digitalWrite(4, LOW);
+    digitalWrite(4, LOW);
+     digitalWrite(3, LOW); 
+    digitalWrite(LED_BUILTIN, LOW);    
+    delay(3000);
 }
 

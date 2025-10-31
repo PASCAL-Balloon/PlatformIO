@@ -16,10 +16,10 @@ NO2Sensor::NO2Sensor() {
 }
 
 void NO2Sensor::init() {
-    this->WEOffset = WEOffset;
-    this->AuxOffset = AuxOffset;
-    this->sensitivity = sensitivity;
-    this->tempMult = tempMult;
+    config.WEOffset;
+    config.AuxOffset;
+    config.sensitivity;
+    config.temperatureMultiplier;
 
     if(!adc.init()){
        data.error = data.error > NO2_ERROR ? data.error : NO2_ERROR;	
@@ -38,9 +38,9 @@ void NO2Sensor::updateData() {
     adc.setCompareChannels(ADS1115_COMP_2_3);
     float Aux = adc.getResult_mV(); 
 
-    data.WE_real = WE - WEOffset;   // mV
-    data.Aux_real = tempMult * (Aux - AuxOffset);  // mV
-    data.atmoData.no2 = (data.WE_real - data.Aux_real)/(sensitivity);
+    data.WE_real = WE - config.WEOffset;   // mV
+    data.Aux_real = config.temperatureMultiplier * (Aux - config.AuxOffset);  // mV
+    data.atmoData.no2 = (data.WE_real - data.Aux_real)/(config.sensitivity);
 }
 
 

@@ -23,7 +23,7 @@ void setup() {
 	initLEDs(5000);
 
 	// Delay to allow the serial monitor to open
-	delay(5000);
+	delay(3000);
 
 	// Skipping the configuration time
 	data.state = STANDBY;

@@ -16,7 +16,7 @@ void GPS::init() {
 
     // Initialization
     if (!gps.begin()) {
-		data.error = data.error > GPS_ERROR ? data.error : GPS_ERROR;	
+		//data.error = data.error > GPS_ERROR ? data.error : GPS_ERROR;	
 		logger.writeError("GPS Initialization Error");
 		return;	
     }

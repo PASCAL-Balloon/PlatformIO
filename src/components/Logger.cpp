@@ -8,7 +8,7 @@
 
 Logger::Logger(const char* prefix) {
 
-	// Making a new file and ensuring it exits (Thanks for the code HAVOC)
+	//Making a new file and ensuring it exits (Thanks for the code HAVOC)
 	// Start with number 1
 	unsigned short int fileNumber = 1;
 	// Reserve space for filenames up to 31 chars
@@ -35,10 +35,10 @@ Logger::Logger(const char* prefix) {
     } while (SD.exists(name) || SD.exists(errorName)); // Do that again if the file exists already
 
 	// Saving the file name we found
-	fileName = name;
+	fileName = "PASCAL0001.csv";
 
 	// Saving an extra file name as the same thing with a -Errors tag
-	errorFileName = errorName;
+	errorFileName = "PASCAL0001-Errors.csv";
 }
 
 void Logger::init() {
@@ -53,7 +53,7 @@ void Logger::init() {
 	// Writes the header for the error file 
 	File dataFile = SD.open(errorFileName, FILE_WRITE);
     if (dataFile) {
-        dataFile.println("Mission Time,Error Name,Altitude,Flight State,Sample State");
+        dataFile.println("MissionTime, ErrorName, Altitude, FlightState, SampleState");
         dataFile.close();
     }
 
@@ -94,7 +94,7 @@ void Logger::writeTelemetry() {
 	getFlightStateString(data.state) + "," + 
 	getSampleStateString(data.sampleState) + "," +
 	String(data.packetNumber) + "," + 
-	String(data.missionTime) + "," + 
+	String(data.missionTime, 3) + "," + 
 	String(data.gpsData.SIV) + "," + 
 	String(data.gpsData.time.year) + ":" + String(data.gpsData.time.month) + ":" + String(data.gpsData.time.day) + ":" + 
 	String(data.gpsData.time.hour) + ":" + String(data.gpsData.time.minute) + ":" + String(data.gpsData.time.second) + "," + 
@@ -104,8 +104,8 @@ void Logger::writeTelemetry() {
 	String(data.atmoData.humiditySensorTemperature) + "," + 
 	String(data.atmoData.pressure) + "," + 
 	String(data.gpsData.pos.alt) + "," + 
-	String(data.gpsData.pos.lat) + "," + 
-	String(data.gpsData.pos.lon) + "," +
+	String(data.gpsData.pos.lat, 7) + "," + 
+	String(data.gpsData.pos.lon, 7) + "," +
 	String(data.atmoData.no2) + "," +
 	String(data.Aux_real) + "," +
 	String(data.WE_real) + "," +
