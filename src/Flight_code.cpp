@@ -26,6 +26,7 @@ void loop() {
 	logger.writeTelemetry();
 	updateState();
 	if (data.state == PASSIVE) controller.sampling();
+	if (data.state == INITIALIZATION) displayErrors();
 }
 
 

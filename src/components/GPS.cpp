@@ -57,6 +57,7 @@ void GPS::update() {
 	};
 
   	data.gpsData.SIV = gps.getSIV();
+	if (data.gpsData.SIV < 3) data.gpsData.pos.alt = 0; 
 	data.gpsData.time = {
 		(int)gps.getYear(),
 		(int)gps.getMonth(),
