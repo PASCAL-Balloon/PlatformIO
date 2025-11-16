@@ -18,7 +18,10 @@
 void setup() {
     pinMode(4, OUTPUT);
     pinMode(3, OUTPUT);
-    pinMode(LED_BUILTIN, OUTPUT);         
+    pinMode(LED_BUILTIN, OUTPUT);    
+    initPins();
+	initComponents();
+	initLEDs(3000);     
 }
 
 void loop() {
@@ -29,8 +32,15 @@ void loop() {
     delay(3000);  
     //digitalWrite(4, LOW);
     digitalWrite(4, LOW);
-     digitalWrite(3, LOW); 
+    digitalWrite(3, LOW); 
     digitalWrite(LED_BUILTIN, LOW);    
     delay(3000);
+    blinky(); 
+	collectData();
+	logger.writeTelemetry();
+	updateState();
+	if (data.state == PASSIVE) controller.sampling();
+	if (data.state == INITIALIZATION) displayErrors();
+
 }
 

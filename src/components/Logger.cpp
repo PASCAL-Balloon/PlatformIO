@@ -35,10 +35,10 @@ Logger::Logger(const char* prefix) {
     } while (SD.exists(name) || SD.exists(errorName)); // Do that again if the file exists already
 
 	// Saving the file name we found
-	fileName = "PASCAL0001.csv";
+	fileName = "PASCALTesting.csv";
 
 	// Saving an extra file name as the same thing with a -Errors tag
-	errorFileName = "PASCAL0001-Errors.csv";
+	errorFileName = "PASCAL0001-ErrorsTesting.csv";
 }
 
 void Logger::init() {
@@ -106,11 +106,13 @@ void Logger::writeTelemetry() {
 	String(data.gpsData.pos.alt) + "," + 
 	String(data.gpsData.pos.lat, 7) + "," + 
 	String(data.gpsData.pos.lon, 7) + "," +
-	String(data.atmoData.no2) + "," +
+	(initializationTimer.isComplete() ? String(data.atmoData.no2, 5) : "NaN") + "," +
 	String(data.Aux_real) + "," +
 	String(data.WE_real) + "," +
 	getErrorString(data.error);	
 	write(Data);
+
+	Serial.println(Data);
   
 	data.packetNumber++;
 }

@@ -18,6 +18,7 @@ void setup() {
 	initPins();
 	initComponents();
 	initLEDs(3000);
+	Serial.begin();
 }
 
 void loop() {

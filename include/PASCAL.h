@@ -23,6 +23,7 @@ extern HumiditySensor humidity;
 extern BMP bmp;
 extern OxygenSensor oxygen;
 extern NO2Sensor no2;
+extern Timer initializationTimer;
 
 
 void initPins();

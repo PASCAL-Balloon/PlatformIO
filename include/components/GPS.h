@@ -12,7 +12,6 @@ class GPS {
 private: 
     SFE_UBLOX_GNSS gps;
     int gnssAddress = 0x42;
-
 	
     // The timer for the tick of the GPS
     Timer tick = Timer(1000);

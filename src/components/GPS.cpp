@@ -49,15 +49,19 @@ void GPS::update() {
 	if (gps.getPVT() == false) {
 		return;  
 	}
+
+  	data.gpsData.SIV = gps.getSIV();
 	
 	data.gpsData.pos = { 
 		((double)gps.getLongitude() * pow(10, -7)),
 		((double)gps.getLatitude() * pow(10, -7)),
-		gps.getAltitude() / 1000.0
+
+		// Making it not update if the SIV is less than 3
+		data.gpsData.SIV > 3 ? gps.getAltitude() / 1000.0 : data.gpsData.pos.alt
 	};
 
-  	data.gpsData.SIV = gps.getSIV();
-	if (data.gpsData.SIV < 3) data.gpsData.pos.alt = 0; 
+
+
 	data.gpsData.time = {
 		(int)gps.getYear(),
 		(int)gps.getMonth(),

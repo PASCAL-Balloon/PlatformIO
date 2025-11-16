@@ -97,7 +97,7 @@ double lastAltitude = 0;
 bool isItDescending() {
 
 	// Starting the timer
-    if (data.gpsData.pos.alt <= lastAltitude && !descentTimerStarted) {
+    if (data.gpsData.pos.alt < lastAltitude && !descentTimerStarted) {
 
 		descendingTimer = Timer(60000); // 1 minute
 		lastAltitude = data.gpsData.pos.alt;
@@ -237,6 +237,7 @@ void displayErrors() {
 			break;
 
 		case NO_ERROR:
+		// case NO2_ERROR:
 			digitalWrite(config.pins.tiny, HIGH);
 			digitalWrite(config.pins.smol, LOW);
 			if (data.gpsData.SIV > 3) {
@@ -245,6 +246,14 @@ void displayErrors() {
 				digitalWrite(LED_BUILTIN, LOW);
 			}
 			break;
+
+		// This is just here for testing, but it doesn't effect anything so I left it
+		default:
+			if (data.gpsData.SIV > 3) {
+				digitalWrite(LED_BUILTIN, HIGH);
+			} else {
+				digitalWrite(LED_BUILTIN, LOW);
+			}
 
 	}
 
