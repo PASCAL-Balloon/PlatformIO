@@ -1,9 +1,7 @@
-
-
 #include "components/Nitrogen.h"
 #include "PASCAL.h"
 
-
+// TODO Check over the logic for the ADC/update for the new sensor
 float NO2Sensor::readChannel(ADS1115_MUX channel) {
   float voltage = 0.0;
   adc.setCompareChannels(channel);
