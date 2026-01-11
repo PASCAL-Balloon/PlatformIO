@@ -176,6 +176,7 @@ Timer errorTimer = Timer(500);
 // Displays the error through the LEDs
 void displayErrors() {
 
+	// TODO Check to make sure they match up and are correct
 	/****************************************** Error Definitions ******************************************
 	 *
 	 *	If SOLID GREEN LIGHT and no pico, then there were no errors.
