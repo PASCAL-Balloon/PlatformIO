@@ -8,7 +8,53 @@
 
 Logger::Logger(const char* prefix) {
 
-	//Making a new file and ensuring it exits (Thanks for the code HAVOC)
+
+	// TODO Fix this. Check over HAVOC code too, that is where we copied it from
+	// Code to reference:
+	/* 
+    // Start with number 1
+    unsigned short int fileNumber = 1;
+    // Reserve space for filenames up to 31 chars
+    char fileName[32];
+    // Reserve space for converting number to string
+    char fileNumberStr[6];
+    do {
+        // Overwrite fileName with prefix
+        strcpy(fileName, config.telemetryFilePrefix);
+        // Convert fileNumber to five-char string (e.g. 1 -> 00001)
+        sprintf(fileNumberStr, "%0*d", 5, fileNumber);
+        // Append fileNumber to prefix
+        strcat(fileName, fileNumberStr);
+        // Append ".csv" to file name
+        strcat(fileName, ".csv");
+        // Increment the filenumber for next loop
+        fileNumber++;
+        Serial.println(fileName);
+    } while (SD.exists(fileName)); // Do that again if the file exists already
+    Serial.print("Found ");
+    Serial.println(fileName);
+    // Once we find a file name that doesn't exist, use it!
+    while (!(telemetryFile = SD.open(fileName, FILE_WRITE))) {
+        // Error message cannot be written to SD card before it is initialized.
+        errorLED.timedColor(colorPresets.magenta, 250);
+        errorLED.timedColor(colorPresets.blue, 250);
+    }
+    strcpy(fileName, config.secondaryTelemetryFilePrefix);
+    sprintf(fileNumberStr, "%0*d", 5, fileNumber);
+    strcat(fileName, fileNumberStr);
+    strcat(fileName, ".txt");
+    while (!(secondaryTelemetryFile = SD.open(fileName, FILE_WRITE))) {
+        // Error message cannot be written to SD card before it is initialized.
+        errorLED.timedColor(colorPresets.magenta, 125);
+        errorLED.timedColor(colorPresets.blue, 125);
+    }
+    strcpy(fileName, config.errorMessageFilePrefix);
+    sprintf(fileNumberStr, "%0*d", 5, fileNumber);
+    strcat(fileName, fileNumberStr);
+    strcat(fileName, ".txt");
+	*/
+
+	// Making a new file and ensuring it exits (Thanks for the code HAVOC)
 	// Start with number 1
 	unsigned short int fileNumber = 1;
 	// Reserve space for filenames up to 31 chars
