@@ -13,6 +13,13 @@ struct I2C {
     int scl = 13;
 };
 
+struct LEDlengths {
+    int initLengthOn = 100;
+    int initLengthOff = 9000;
+    int flightLengthOn = 100;
+    int flightLengthOff = 900;
+
+};
 
 // Where all of the pins go
 struct Pins {
@@ -85,8 +92,9 @@ struct Config {
 		250.0,	// 250
 		250.0	// 250
 	}; // ms
-    
+
     Pins pins;
+    LEDlengths ledlengths;
 
     // The constants, generally shouldn't be touched
     float seaLevelPressure = 1013.25;
@@ -102,4 +110,6 @@ struct Config {
     String payload = "PASCAL";
 
 };
+
+
 

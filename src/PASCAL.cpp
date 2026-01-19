@@ -64,7 +64,7 @@ void initLEDs(int msDelay) {
 	digitalWrite(config.pins.brightLEDs, HIGH);
 	digitalWrite(config.pins.tiny, HIGH);
 	digitalWrite(config.pins.smol, HIGH);
-	digitalWrite(config.pins.blinker, HIGH); // I'm not entirely sure what this is?
+	digitalWrite(config.pins.blinker, HIGH);
 	delay(msDelay);
 	digitalWrite(config.pins.brightLEDs, LOW);
 	digitalWrite(config.pins.tiny, LOW);
@@ -74,16 +74,26 @@ void initLEDs(int msDelay) {
 }
 
 // Timer that blinks the external LEDs throughout the flight
-Timer blinkyTimer = Timer(500); // Half a second
+Timer lux = Timer(config.ledlengths.initLengthOn); 
+Timer nox = Timer(config.ledlengths.initLengthOff);
+
+bool isLightOn = false;
 
 void blinky() {
-	if (blinkyTimer.isComplete()) {
-		digitalWrite(config.pins.blinker, !digitalRead(config.pins.blinker));
-		if (data.state != INITIALIZATION){
-			digitalWrite(config.pins.brightLEDs, !digitalRead(config.pins.brightLEDs));
+	if (isLightOn) {
+		if (lux.isComplete()) {
+			nox.reset();
+			digitalWrite(config.pins.blinker, LOW);
+			isLightOn = false;
 		}
-		blinkyTimer.reset();  
-	} 
+	} else {
+		if (nox.isComplete()) {
+			lux.reset();
+			digitalWrite(config.pins.blinker, HIGH);
+			isLightOn = true;
+		}
+	}
+	// fry pico	
 }
 
 // 30 second timer for descent checking
@@ -155,7 +165,11 @@ void updateState() {
 
 	switch (data.state) {
 		case INITIALIZATION:
-			if (initializationTimer.isComplete()) data.state = STANDBY;
+			if (initializationTimer.isComplete()) {
+				data.state = STANDBY;
+				lux.setDuration(config.ledlengths.flightLengthOn);
+				nox.setDuration(config.ledlengths.flightLengthOff);
+			}
 			break;
 		case STANDBY:
 			if (data.gpsData.pos.alt > 500) data.state = PASSIVE;
