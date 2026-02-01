@@ -33,7 +33,7 @@ void initPins() {
 	pinMode(config.pins.brightLEDs, OUTPUT);
 	pinMode(config.pins.tiny, OUTPUT);
 	pinMode(config.pins.smol, OUTPUT);
-	pinMode(config.pins.blinker, OUTPUT);
+	pinMode(config.pins.brightLEDs, OUTPUT);
 	pinMode(config.pins.i2c.scl, OUTPUT);
 	pinMode(config.pins.i2c.sda, OUTPUT);
 
@@ -64,12 +64,12 @@ void initLEDs(int msDelay) {
 	digitalWrite(config.pins.brightLEDs, HIGH);
 	digitalWrite(config.pins.tiny, HIGH);
 	digitalWrite(config.pins.smol, HIGH);
-	digitalWrite(config.pins.blinker, HIGH);
+	digitalWrite(config.pins.brightLEDs, HIGH);
 	delay(msDelay);
 	digitalWrite(config.pins.brightLEDs, LOW);
 	digitalWrite(config.pins.tiny, LOW);
 	digitalWrite(config.pins.smol, LOW);
-	digitalWrite(config.pins.blinker, LOW);
+	digitalWrite(config.pins.brightLEDs, LOW);
 
 }
 
@@ -83,13 +83,13 @@ void blinky() {
 	if (isLightOn) {
 		if (lux.isComplete()) {
 			nox.reset();
-			digitalWrite(config.pins.blinker, LOW);
+			digitalWrite(config.pins.brightLEDs, LOW);
 			isLightOn = false;
 		}
 	} else {
 		if (nox.isComplete()) {
 			lux.reset();
-			digitalWrite(config.pins.blinker, HIGH);
+			digitalWrite(config.pins.brightLEDs, HIGH);
 			isLightOn = true;
 		}
 	}
