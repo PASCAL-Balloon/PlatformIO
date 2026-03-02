@@ -77,6 +77,11 @@ struct Data {
 	float WE_real; 	// mV 
 	float Aux_real; // mV
 
+    float pin0; //mV
+    float pin1; //mV
+    float pin2; //mV
+    float pin3; //mV
+
     // The error code we are displaying
     Error error = NO_ERROR; // Yields the highest error generated
 };

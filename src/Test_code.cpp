@@ -15,19 +15,17 @@
 #include "components/Humidity.h"
 #include "components/PumpController.h"
 
-void setup() {
-    pinMode(4, OUTPUT);
-    pinMode(3, OUTPUT);
-    pinMode(LED_BUILTIN, OUTPUT);    
+void setup() {   
     initPins();
 	initComponents();
-	initLEDs(3000);     
+    logger.write("Pin 0, Pin 1, Pin 2, Pin 3");
 }
 
 void loop() {
-    blinky();
-    updateState();
-    data.state = STANDBY;
 
+  
+    no2.getRawData();
+    //Serial.println(String(data.pin0) + ", " + String(data.pin1)+  ", " + String(data.pin2)+  ", " + String(data.pin3));
+    logger.write(String(data.pin0) + "," + String(data.pin1)+  "," + String(data.pin2)+  "," + String(data.pin3));
 }
 

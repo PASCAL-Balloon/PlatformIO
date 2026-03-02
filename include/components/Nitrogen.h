@@ -28,6 +28,7 @@ public:
 
     // Updates the nitrogen reading in Data
     void updateData();
-	
+
+	void getRawData();
 
 };

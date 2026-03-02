@@ -24,9 +24,10 @@ void NO2Sensor::init() {
        logger.writeError("ADC Initialization Error");
     }
 
-    adc.setVoltageRange_mV(ADS1115_RANGE_6144);
-    adc.setCompareChannels(ADS1115_COMP_0_GND);
-    adc.setMeasureMode(ADS1115_CONTINUOUS); 
+   
+   adc.setVoltageRange_mV(ADS1115_RANGE_6144);
+  adc.setCompareChannels(ADS1115_COMP_0_GND);
+  adc.setMeasureMode(ADS1115_CONTINUOUS); 
 }
 
 void NO2Sensor::updateData() {
@@ -42,3 +43,20 @@ void NO2Sensor::updateData() {
 }
 
 
+void NO2Sensor::getRawData() {
+
+    adc.setCompareChannels(ADS1115_COMP_0_GND);
+    data.pin0 = adc.getResult_mV();
+
+    adc.setCompareChannels(ADS1115_COMP_1_GND);
+    data.pin1 = adc.getResult_mV(); 
+
+    adc.setCompareChannels(ADS1115_COMP_2_GND);
+    data.pin2 = adc.getResult_mV(); 
+
+    adc.setCompareChannels(ADS1115_COMP_3_GND);
+     data.pin3 = adc.getResult_mV(); 
+   
+    Serial.println(String(data.pin0) + ", " + String(data.pin1)+  ", " + String(data.pin2)+  ", " + String(data.pin3));
+    logger.write(String(data.pin0) + "," + String(data.pin1)+  "," + String(data.pin2)+  "," + String(data.pin3));
+}
