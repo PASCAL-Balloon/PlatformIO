@@ -252,7 +252,7 @@ void displayErrors() {
 			break;
 
 		case NO_ERROR:
-		// case NO2_ERROR:
+		// case there is no error here:
 			digitalWrite(config.pins.tiny, HIGH);
 			digitalWrite(config.pins.smol, LOW);
 			if (data.gpsData.SIV > 3) {
@@ -342,6 +342,7 @@ void collectData() {
 	bmp.updateData();
 	humidity.updateData();
 	no2.updateData();
+	no2.getRawData();
 	oxygen.updateData();
 	data.missionTime = millis() / 1000.00;
 	displayErrors();

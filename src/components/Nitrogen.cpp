@@ -25,20 +25,28 @@ void NO2Sensor::init() {
     }
 
    
-   adc.setVoltageRange_mV(ADS1115_RANGE_6144);
+  adc.setVoltageRange_mV(ADS1115_RANGE_6144);
   adc.setCompareChannels(ADS1115_COMP_0_GND);
   adc.setMeasureMode(ADS1115_CONTINUOUS); 
 }
 
+
+//Right now we have it set so it read pin 0 and 1 and uses the differences to calculate
+// the NO2 concentration. This will probably updated later
 void NO2Sensor::updateData() {
-    adc.setCompareChannels(ADS1115_COMP_0_1);
+    adc.setCompareChannels(ADS1115_COMP_0_GND);
     float WE = adc.getResult_mV(); // alternative: getResult_mV for Millivolt
 
-    adc.setCompareChannels(ADS1115_COMP_2_3);
+    adc.setCompareChannels(ADS1115_COMP_1_GND);
     float Aux = adc.getResult_mV(); 
 
-    data.WE_real = WE - config.WEOffset;   // mV
-    data.Aux_real = config.temperatureMultiplier * (Aux - config.AuxOffset);  // mV
+    data.WE_real = WE; // mV
+    data.Aux_real = Aux;
+
+    // data.WE_real = WE - config.WEOffset;   // mV
+    // data.Aux_real = config.temperatureMultiplier * (Aux - config.AuxOffset);  // mV
+    // data.atmoData.no2 = (data.WE_real - data.Aux_real)/(config.sensitivity);
+
     data.atmoData.no2 = (data.WE_real - data.Aux_real)/(config.sensitivity);
 }
 
@@ -55,7 +63,7 @@ void NO2Sensor::getRawData() {
     data.pin2 = adc.getResult_mV(); 
 
     adc.setCompareChannels(ADS1115_COMP_3_GND);
-     data.pin3 = adc.getResult_mV(); 
+    data.pin3 = adc.getResult_mV(); 
    
     Serial.println(String(data.pin0) + ", " + String(data.pin1)+  ", " + String(data.pin2)+  ", " + String(data.pin3));
     logger.write(String(data.pin0) + "," + String(data.pin1)+  "," + String(data.pin2)+  "," + String(data.pin3));

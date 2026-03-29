@@ -94,7 +94,7 @@ void Logger::init() {
     }
 
 	// Writes the header for the file
-	write("Payload,Payload State,Sampling State,Packet Number,Mission Time (s),SIV,UTC Time,Oxygen Concentration (ppb),Temperature (deg C),Humidity (%),Humidity Sensor Temperature (deg C),Pressure (mBar),GPS Altitude (m),GPS Latitude (DD.dddd),GPS Longitude (DD.dddd),Nitrogen (ppb),Aux Measure (mV),WE Measure (mV),Error"); 
+	write("Payload,Payload State,Sampling State,Packet Number,Mission Time (s),SIV,UTC Time,Oxygen Concentration (ppb),Temperature (deg C),Humidity (%),Humidity Sensor Temperature (deg C),Pressure (mBar),GPS Altitude (m),GPS Latitude (DD.dddd),GPS Longitude (DD.dddd),Nitrogen (ppb),Pin 0 Measure (mV),Pin 1 Measure (mV),Pin 2 Measure (mV),Pin 3 Measure (mV),Error"); 
 
 	// Writes the header for the error file 
 	File dataFile = SD.open(errorFileName, FILE_WRITE);
@@ -120,7 +120,7 @@ void Logger::writeError(String errorName) {
 
 	// Adding context
 	String toWrite = String(data.missionTime)
-		+ errorName + ","
+		+ "," + errorName + ","
 		+ String(data.atmoData.alt) + ","
 		+ getFlightStateString(data.state) + ","
 		+ getSampleStateString(data.sampleState);
@@ -153,8 +153,10 @@ void Logger::writeTelemetry() {
 	String(data.gpsData.pos.lat, 7) + "," + 
 	String(data.gpsData.pos.lon, 7) + "," +
 	(initializationTimer.isComplete() ? String(data.atmoData.no2, 5) : "NaN") + "," +
-	String(data.Aux_real) + "," +
-	String(data.WE_real) + "," +
+	String(data.pin0) + "," +
+    String(data.pin1) + "," +
+    String(data.pin2) + "," +
+    String(data.pin3) + "," +
 	getErrorString(data.error);	
 	write(Data);
 
